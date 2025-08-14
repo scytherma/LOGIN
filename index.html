@@ -58,6 +58,7 @@
                 document.getElementById('user-header').style.display = 'flex';
                 document.getElementById("main-content").style.display = "block";
                 document.getElementById("userName").textContent = user.email;
+                document.getElementById("dropdownUserName").textContent = user.email;
             }
         });
     </script>
@@ -68,7 +69,32 @@
         </div>
         <div class="user-info">
             <span id="userName">Carregando...</span>
-            <button onclick="logout( )" class="logout-btn">Sair</button>
+            <div class="user-menu-container">
+                <button class="user-icon-btn" id="userIconBtn">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="#ff6b35" stroke-width="2" fill="#f8f9fa"/>
+                        <circle cx="12" cy="8" r="3" stroke="#ff6b35" stroke-width="2" fill="none"/>
+                        <path d="M6 20c0-4 3-6 6-6s6 2 6 6" stroke="#ff6b35" stroke-width="2" fill="none"/>
+                    </svg>
+                </button>
+                <div class="user-dropdown-menu" id="userDropdownMenu">
+                    <div class="dropdown-header">
+                        <span id="dropdownUserName"></span>
+                    </div>
+                    <div class="dropdown-item theme-toggle-item">
+                        <span>Tema:</span>
+                        <label class="switch">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span>Claro/Escuro</span>
+                    </div>
+                    <a href="#" class="dropdown-item">Configurações</a>
+                    <a href="#" class="dropdown-item">Ajuda</a>
+                    <a href="#" class="dropdown-item">Termos de Uso</a>
+                    <a href="#" class="dropdown-item logout-btn" id="logoutBtn">Logout</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -434,4 +460,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
