@@ -8,3 +8,4 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Exportar para uso global
 window.supabaseClient = supabaseClient;
+
