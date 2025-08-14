@@ -621,3 +621,50 @@ function adicionarCustoExtra(target) {
         }
     });
 }
+
+
+
+// ===== FUNCIONALIDADE DO MENU DE USUÁRIO =====
+function initializeUserMenu() {
+    const userIconBtn = document.getElementById("userIconBtn");
+    const userDropdownMenu = document.getElementById("userDropdownMenu");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const themeToggle = document.getElementById("themeToggle");
+
+    if (userIconBtn) {
+        userIconBtn.addEventListener("click", () => {
+            userDropdownMenu.classList.toggle("show");
+        });
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            logout();
+        });
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener("change", () => {
+            document.body.classList.toggle("dark-theme");
+            const isDarkMode = document.body.classList.contains("dark-theme");
+            localStorage.setItem("dark-theme", isDarkMode);
+        });
+
+        // Aplicar o tema salvo ao carregar a página
+        if (localStorage.getItem("dark-theme") === "true") {
+            document.body.classList.add("dark-theme");
+            themeToggle.checked = true;
+        }
+    }
+
+    // Fechar o menu se clicar fora
+    window.addEventListener("click", (e) => {
+        if (!userIconBtn.contains(e.target) && !userDropdownMenu.contains(e.target)) {
+            userDropdownMenu.classList.remove("show");
+        }
+    });
+}
+
+// Adicionar a inicialização do menu de usuário ao DOMContentLoaded
+document.addEventListener("DOMContentLoaded", initializeUserMenu);
