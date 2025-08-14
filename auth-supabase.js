@@ -257,7 +257,7 @@ async function handleRegister(e) {
                     phone: phone,
                     how_found_us: howFoundUs
                 },
-                emailRedirectTo: 'https://tdwbqtkh.manus.space'
+                emailRedirectTo: 'https://scytherma.github.io/LOGIN/'
             }
         });
         
@@ -303,7 +303,7 @@ async function handleGoogleLogin() {
         const { data, error } = await supabaseClient.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                redirectTo: 'https://tdwbqtkh.manus.space'
+                redirectTo: 'https://scytherma.github.io/LOGIN/'
             }
         });
         
