@@ -621,4 +621,3 @@ function adicionarCustoExtra(target) {
         }
     });
 }
-
