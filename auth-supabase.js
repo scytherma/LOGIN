@@ -1,7 +1,7 @@
 // Funções de autenticação com Supabase
 
 // Funções utilitárias
-function showError(message) {
+function showError(message ) {
     const errorDiv = document.getElementById("errorMessage");
     const successDiv = document.getElementById("successMessage");
     
@@ -59,7 +59,7 @@ function setLoading(isLoading) {
 }
 
 function validateEmail(email) {
-    const re = /^[\S+@\S+\.\S+]$/;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
 }
 
@@ -133,7 +133,7 @@ async function checkAuthStatus() {
         if (user) {
             // Usuário logado
             if (window.location.pathname === "/login.html" || window.location.pathname === "/register.html") {
-                window.location.href = "https://scytherma.github.io/LOGIN/index.html";
+                window.location.href = "/LOGIN/index.html";
             } else {
                 // Atualizar interface do usuário
                 updateUserInterface(user);
@@ -141,7 +141,7 @@ async function checkAuthStatus() {
         } else {
             // Usuário não logado
             if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
-                window.location.href = "https://scytherma.github.io/LOGIN/login.html";
+                window.location.href = "/LOGIN/login.html";
             }
         }
     } catch (error) {
@@ -153,7 +153,7 @@ async function checkAuthStatus() {
 }
 
 // Atualizar interface do usuário
-function updateUserInterface(user) {
+function updateUserInterface(user ) {
     const userNameElement = document.getElementById("userName");
     if (userNameElement) {
         const displayName = user.user_metadata?.name || user.email.split("@")[0];
@@ -194,7 +194,7 @@ async function handleLogin(e) {
         showSuccess("Login realizado com sucesso!");
         
         setTimeout(() => {
-            window.location.href = "https://scytherma.github.io/LOGIN/index.html";
+            window.location.href = "/LOGIN/index.html";
         }, 1000);
         
     } catch (error) {
@@ -259,7 +259,7 @@ async function handleRegister(e) {
                 },
                 emailRedirectTo: "https://scytherma.github.io/LOGIN/"
             }
-        });
+        } );
         
         if (error) {
             throw error;
@@ -269,13 +269,13 @@ async function handleRegister(e) {
             showSuccess("Cadastro realizado! Verifique seu e-mail para confirmar a conta.");
             
             setTimeout(() => {
-                window.location.href = "https://scytherma.github.io/LOGIN/login.html";
+                window.location.href = "/LOGIN/login.html";
             }, 3000);
         } else {
             showSuccess("Cadastro realizado com sucesso!");
             
             setTimeout(() => {
-                window.location.href = "https://scytherma.github.io/LOGIN/index.html";
+                window.location.href = "/LOGIN/index.html";
             }, 1000);
         }
         
@@ -305,7 +305,7 @@ async function handleGoogleLogin() {
             options: {
                 redirectTo: "https://scytherma.github.io/LOGIN/"
             }
-        });
+        } );
         
         if (error) {
             throw error;
@@ -331,14 +331,14 @@ async function logout() {
         
         window.location.href = "https://scytherma.github.io/LOGIN/login.html";
         
-    } catch (error) {
+    } catch (error ) {
         console.error("Erro no logout:", error);
         // Mesmo com erro, redirecionar para login
         window.location.href = "https://scytherma.github.io/LOGIN/login.html";
     }
 }
 
-// Função para verificar autenticação (para usar na calculadora)
+// Função para verificar autenticação (para usar na calculadora )
 function checkAuth() {
     return new Promise(async (resolve) => {
         try {
@@ -348,13 +348,13 @@ function checkAuth() {
                 updateUserInterface(user);
                 resolve(true);
             } else {
-                window.location.href = "https://scytherma.github.io/LOGIN/login.html";
+                window.location.href = "/LOGIN/login.html";
                 resolve(false);
             }
         } catch (error) {
             console.error("Erro ao verificar autenticação:", error);
             window.location.href = "https://scytherma.github.io/LOGIN/login.html";
-            resolve(false);
+            resolve(false );
         }
     });
 }
@@ -370,4 +370,6 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
             window.location.href = "https://scytherma.github.io/LOGIN/login.html";
         }
     }
-});
+} );
+
+
