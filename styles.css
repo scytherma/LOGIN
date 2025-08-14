@@ -257,7 +257,7 @@ input:checked + .slider:before {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url(\'data:image/svg+xml;utf8,<svg fill="%23666666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>\' );
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23666666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
     background-repeat: no-repeat;
     background-position: right 15px center;
     background-size: 16px;
@@ -388,7 +388,7 @@ input:checked + .slider:before {
     flex: 1;
     height: 6px;
     border-radius: 3px;
-    background: transparent; /* A cor de fundo será definida pelo track */
+    background: transparent;
     outline: none;
     -webkit-appearance: none;
     transition: background 0.3s ease;
@@ -418,23 +418,23 @@ input:checked + .slider:before {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: var(--track-color); /* Usar a mesma cor do track */
+    background: var(--track-color);
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     transition: background 0.3s ease;
-    margin-top: -7px; /* Centraliza verticalmente com a track */
+    margin-top: -7px;
 }
 
 .margin-slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: var(--track-color); /* Usar a mesma cor do track */
+    background: var(--track-color);
     cursor: pointer;
     border: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     transition: background 0.3s ease;
-    margin-top: -7px; /* Centraliza verticalmente com a track */
+    margin-top: -7px;
 }
 
 .margin-value {
@@ -443,6 +443,207 @@ input:checked + .slider:before {
     color: #333;
     min-width: 50px;
     text-align: right;
+}
+
+
+
+/* Header do usuário */
+.user-header {
+    background: white;
+    color: #333;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo-container {
+    flex: 0 0 auto;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+}
+
+/* Cores da Margem de Lucro */
+.margin-slider {
+    --track-color: #FF0000;
+    --track-fill: 0%;
+    background: linear-gradient(to right, var(--track-color) var(--track-fill), #ddd var(--track-fill));
+    transition: background 0.3s ease;
+}
+
+.margin-slider.margem-vermelho {
+    --track-color: #FF0000;
+}
+
+.margin-slider.margem-laranja {
+    --track-color: #FFA500;
+}
+
+.margin-slider.margem-amarelo {
+    --track-color: #FFFF00;
+}
+
+.margin-slider.margem-verde-lima {
+    --track-color: #32CD32;
+}
+
+.margin-slider.margem-verde-claro {
+    --track-color: #90EE90;
+}
+
+.margin-slider.margem-azul-ciano {
+    --track-color: #00FFFF;
+}
+
+.margin-slider.margem-azul-escuro {
+    --track-color: #00008B;
+}
+
+/* Estilos para Custo Extra Dinâmico */
+.add-custo-extra-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    transition: background-color 0.2s;
+}
+
+.add-custo-extra-btn:hover {
+    background: #45a049;
+}
+
+.input-group label .add-custo-extra-btn {
+    margin-top: -2px;
+}
+
+#custosExtrasContainer, #custosExtrasContainerML {
+    margin-top: 15px;
+}
+
+.custo-extra-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.custo-extra-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.custo-extra-item:focus-within {
+    border-color: #4CAF50;
+}
+
+.custo-extra-type-selector {
+    padding: 12px 15px;
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #666;
+    border: none;
+    border-right: 1px solid #e0e0e0;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23666666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    background-size: 16px;
+    padding-right: 25px;
+}
+
+.custo-extra-value {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: transparent;
+}
+
+.remove-custo-extra-btn {
+    background: rgb(255, 60, 0);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.2s;
+}
+
+.remove-custo-extra-btn:hover {
+    background: #d32f2f;
+}
+
+/* Estilos para o botão Limpar Campos */
+.limpar-campos-btn {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    margin-top: 20px;
+    background-color: rgb(255, 60, 0);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.limpar-campos-btn:hover {
+    background-color: rgb(230, 50, 0);
+}
+
+/* Coming Soon */
+.coming-soon {
+    background: white;
+    border-radius: 0 0 12px 12px;
+    padding: 60px 30px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.coming-soon h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.coming-soon p {
+    font-size: 16px;
+    color: #666;
 }
 
 /* Responsividade */
@@ -457,6 +658,19 @@ input:checked + .slider:before {
     
     .main-results {
         grid-template-columns: 1fr;
+    }
+    
+    .tabs-header {
+        flex-direction: column;
+    }
+    
+    .tab-button {
+        border-radius: 0 !important;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .tab-button:last-child {
+        border-bottom: none;
     }
 }
 
@@ -492,218 +706,4 @@ input:checked + .slider:before {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-
-
-
-/* Header do usuário */
-.user-header {
-    background: white;
-    color: #333;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.logo-container {
-    flex: 0 0 auto;
-}
-
-.logo {
-    height: 40px;
-    width: auto;
-    max-width: 200px;
-    object-fit: contain;
-}
-
-.user-info {
-    font-weight: 500;
-    font-size: 14px;
-    flex: 1;
-    text-align: center;
-}
-
-.logout-btn {
-    background: rgba(255,255,255,0.2);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.3);
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: all 0.3s ease;
-}
-
-.logout-btn:hover {
-    background: rgba(255,255,255,0.3);
-    border-color: rgba(255,255,255,0.5);
-}
-
-/* Ajustar container para acomodar o header */
-.container {
-    margin-top: 0;
-}
-
-/* Cores da Margem de Lucro */
-.margin-slider {
-    --track-color: #FF0000; /* Cor padrão inicial */
-    --track-fill: 0%; /* Preenchimento inicial */
-    background: linear-gradient(to right, var(--track-color) var(--track-fill), #ddd var(--track-fill));
-    transition: background 0.3s ease;
-}
-
-.margin-slider.margem-vermelho {
-    --track-color: #FF0000;
-}
-
-.margin-slider.margem-laranja {
-    --track-color: #FFA500;
-}
-
-.margin-slider.margem-amarelo {
-    --track-color: #FFFF00;
-}
-
-.margin-slider.margem-verde-lima {
-    --track-color: #32CD32;
-}
-
-.margin-slider.margem-verde-claro {
-    --track-color: #90EE90;
-}
-
-.margin-slider.margem-azul-ciano {
-    --track-color: #00FFFF;
-}
-
-.margin-slider.margem-azul-escuro {
-    --track-color: #00008B;
-}
-
-
-/* Estilos para Custo Extra Dinâmico */
-.add-custo-extra-btn {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10px;
-    transition: background-color 0.2s;
-}
-
-.add-custo-extra-btn:hover {
-    background: #45a049;
-}
-
-.input-group label .add-custo-extra-btn {
-    margin-top: -2px; /* Ajuste fino para alinhar com o texto */
-}
-
-#custosExtrasContainer {
-    margin-top: 15px;
-}
-
-.custo-extra-wrapper {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    gap: 10px; /* Adiciona espaço entre o campo e o botão X */
-}
-
-.custo-extra-item {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-}
-
-.custo-extra-item:focus-within {
-    border-color: #4CAF50;
-}
-
-.custo-extra-type-selector {
-    padding: 12px 15px;
-    background: #f8f9fa;
-    font-weight: 600;
-    color: #666;
-    border: none;
-    border-right: 1px solid #e0e0e0;
-    outline: none;
-    cursor: pointer;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url(\'data:image/svg+xml;utf8,<svg fill="%23666666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>\' );
-    background-repeat: no-repeat;
-    background-position: right 5px center;
-    background-size: 16px;
-    padding-right: 25px; /* Espaço para a seta */
-}
-
-.custo-extra-value {
-    flex: 1;
-    padding: 12px 15px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background: transparent;
-}
-
-.remove-custo-extra-btn {
-    background: rgb(255, 60, 0);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0; /* Impede que o botão encolha */
-    transition: background-color 0.2s;
-}
-
-.remove-custo-extra-btn:hover {
-    background: #d32f2f;
-}
-
-
-
-
-/* Estilos para o botão Limpar Campos */
-.limpar-campos-btn {
-    display: block;
-    width: 100%;
-    padding: 15px 20px;
-    margin-top: 20px;
-    background-color: rgb(255, 60, 0); /* Cor laranja */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.limpar-campos-btn:hover {
-    background-color: rgb(255, 60, 0); /* Laranja mais escuro para hover */
-}
-
 
