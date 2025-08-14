@@ -1,7 +1,7 @@
 // Funções de autenticação com Supabase
 
 // Funções utilitárias
-function showError(message) {
+function showError(message ) {
     const errorDiv = document.getElementById("errorMessage");
     const successDiv = document.getElementById("successMessage");
     
@@ -45,6 +45,8 @@ function setLoading(isLoading) {
                 button.textContent = "Cadastrando...";
             } else if (button.textContent.includes("Entrar")) {
                 button.textContent = "Entrando...";
+            } else if (button.textContent.includes("Sign in with Google")) {
+                button.textContent = "Entrando com Google...";
             }
         } else {
             button.disabled = false;
@@ -53,6 +55,8 @@ function setLoading(isLoading) {
                 button.textContent = "Cadastrar";
             } else if (button.textContent.includes("Entrando")) {
                 button.textContent = "Entrar";
+            } else if (button.textContent.includes("Entrando com Google")) {
+                button.textContent = "Sign in with Google";
             }
         }
     });
@@ -195,7 +199,7 @@ async function handleLogin(e) {
         
         setTimeout(() => {
             window.location.href = "https://scytherma.github.io/LOGIN/index.html";
-        }, 1000 );
+        }, 1000);
         
     } catch (error) {
         console.error("Erro no login:", error);
@@ -351,13 +355,12 @@ function checkAuth() {
                 window.location.href = "/LOGIN/login.html";
                 resolve(false);
             }
+        } catch (error) {
+            console.error("Erro ao verificar autenticação:", error);
+            window.location.href = "https://scytherma.github.io/LOGIN/login.html";
+            resolve(false );
         }
-    } catch (error) {
-        console.error("Erro ao verificar autenticação:", error);
-        window.location.href = "https://scytherma.github.io/LOGIN/login.html";
-        resolve(false );
-    }
-});
+    });
 }
 
 // Listener para mudanças de autenticação
@@ -372,5 +375,3 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
         }
     }
 } );
-
-
