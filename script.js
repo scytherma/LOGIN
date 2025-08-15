@@ -15,26 +15,55 @@ document.addEventListener("DOMContentLoaded", function() {
     initializeTabs();
     initializeShopeeCalculator();
     initializeMercadoLivreCalculator();
+    initializeThemeToggle(); // Inicializa a funcionalidade de tema
 });
 
 function initializeTabs() {
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabContents = document.querySelectorAll(".tab-content");
 
     tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            if (this.classList.contains('disabled')) return;
+        button.addEventListener("click", function() {
+            if (this.classList.contains("disabled")) return;
 
             // Remove active class from all buttons and contents
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
+            tabButtons.forEach(btn => btn.classList.remove("active"));
+            tabContents.forEach(content => content.classList.remove("active"));
 
             // Add active class to clicked button and corresponding content
-            this.classList.add('active');
-            const tabId = this.getAttribute('data-tab');
-            document.getElementById(tabId + '-tab').classList.add('active');
+            this.classList.add("active");
+            const tabId = this.getAttribute("data-tab");
+            document.getElementById(tabId + "-tab").classList.add("active");
         });
     });
+}
+
+// ===== LÓGICA DE TEMA =====
+function initializeThemeToggle() {
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+
+    // Carregar preferência de tema do localStorage
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+        body.classList.add(savedTheme);
+        if (savedTheme === "dark-theme") {
+            themeToggle.checked = true;
+        }
+    }
+
+    // Adicionar listener para alternar tema
+    if (themeToggle) {
+        themeToggle.addEventListener("change", function() {
+            if (this.checked) {
+                body.classList.add("dark-theme");
+                localStorage.setItem("theme", "dark-theme");
+            } else {
+                body.classList.remove("dark-theme");
+                localStorage.setItem("theme", ""); // Ou 'light-theme'
+            }
+        });
+    }
 }
 
 // ===== CALCULADORA SHOPEE =====
@@ -225,11 +254,11 @@ function atualizarResultadosShopee(resultados) {
     // Atualizar cor do lucro
     const lucroPorVendaElement = document.getElementById("lucroPorVenda");
     if (resultados.lucroLiquido > 0) {
-        lucroPorVendaElement.style.color = "#4CAF50";
+        lucroPorVendaElement.style.color = "var(--accent-success)";
     } else if (resultados.lucroLiquido < 0) {
-        lucroPorVendaElement.style.color = "#f44336";
+        lucroPorVendaElement.style.color = "var(--accent-danger)";
     } else {
-        lucroPorVendaElement.style.color = "#ff6b35";
+        lucroPorVendaElement.style.color = "var(--accent-primary)";
     }
 }
 
@@ -242,7 +271,7 @@ function resetarCalculadoraShopee() {
     multiplicadorCustoShopee = 1;
     document.querySelector(".multiplier:not([id])").textContent = "1x";
     
-    document.getElementById("custosExtrasContainer").innerHTML = '';
+    document.getElementById("custosExtrasContainer").innerHTML = "";
     
     atualizarMargemValue(document.getElementById("margemValue"), 0);
     calcularPrecoVendaShopee();
@@ -258,7 +287,7 @@ function initializeMercadoLivreCalculator() {
         taxaFreteSelect: document.getElementById("taxaFreteSelect"),
         margemLucro: document.getElementById("margemLucroML"),
         custosExtrasContainer: document.getElementById("custosExtrasContainerML"),
-        addCustoExtraBtn: document.querySelector(".add-custo-extra-btn[data-target='ML']"),
+        addCustoExtraBtn: document.querySelector(".add-custo-extra-btn[data-target=\'ML\']"),
         limparCamposBtn: document.getElementById("limparCamposBtnML"),
         
         // Resultados
@@ -283,8 +312,8 @@ function initializeMercadoLivreCalculator() {
     }
     
     // Botões do multiplicador
-    const arrowUpML = document.querySelector(".arrow-up[data-target='ML']");
-    const arrowDownML = document.querySelector(".arrow-down[data-target='ML']");
+    const arrowUpML = document.querySelector(".arrow-up[data-target=\'ML\']");
+    const arrowDownML = document.querySelector(".arrow-down[data-target=\'ML\']");
     
     if (arrowUpML) {
         arrowUpML.addEventListener("click", () => {
@@ -376,11 +405,7 @@ function calcularPrecoVendaML() {
     
     const margemDesejada = parseFloat(document.getElementById("margemLucroML").value) || 0;
     
-    // Obter taxa do Mercado Livre selecionada
-    const taxaMLPercent = parseFloat(document.getElementById("taxaMercadoLivreSelect").value) || 12;
-    const taxaML = taxaMLPercent / 100;
-    
-    // Obter taxa de frete selecionada
+    const taxaMercadoLivre = parseFloat(document.getElementById("taxaMercadoLivreSelect").value) || 0;
     const taxaFrete = parseFloat(document.getElementById("taxaFreteSelect").value) || 0;
 
     // Separar custos extras em valores reais e percentuais
@@ -397,29 +422,23 @@ function calcularPrecoVendaML() {
         if (tipo === "real") {
             custosExtrasReais += valor;
         } else if (tipo === "percent") {
-            // Custos extras em % são aplicados sobre o preço de venda
             custosExtrasPercentuais += (valor / 100);
         }
     });
-    
-    // Custo total do produto (custo + custos extras em R$)
+
     const custoTotalProduto = custoProduto + custosExtrasReais;
     
-    // Fórmula corrigida: PV = (Custo Total + Despesas + Frete) / (1 - Taxa ML - Margem - Impostos - Custos Extras %)
-    const denominador = (1 - taxaML - (margemDesejada / 100) - (impostosPercent / 100) - custosExtrasPercentuais);
+    const denominador = (1 - (taxaMercadoLivre / 100) - (taxaFrete / 100) - (margemDesejada / 100) - (impostosPercent / 100) - custosExtrasPercentuais);
     let precoVenda = 0;
     if (denominador > 0) {
-        precoVenda = (custoTotalProduto + despesasVariaveis + taxaFrete) / denominador;
+        precoVenda = (custoTotalProduto + despesasVariaveis) / denominador;
     }
 
-    // Cálculos dos valores baseados no preço de venda
     const valorImpostos = precoVenda * (impostosPercent / 100);
     const valorCustosExtrasPercentuais = precoVenda * custosExtrasPercentuais;
-    const taxaMLValor = precoVenda * taxaML;
-    const margemLucroValor = precoVenda * (margemDesejada / 100);
+    const taxaMercadoLivreValor = precoVenda * (taxaMercadoLivre / 100);
     
-    // Lucro líquido = Preço de Venda - todos os custos
-    const lucroLiquido = precoVenda - custoTotalProduto - despesasVariaveis - taxaFrete - taxaMLValor - valorImpostos - valorCustosExtrasPercentuais;
+    const lucroLiquido = precoVenda - custoTotalProduto - despesasVariaveis - taxaMercadoLivreValor - taxaFrete - valorImpostos - valorCustosExtrasPercentuais;
     
     const retornoProduto = custoTotalProduto > 0 ? (lucroLiquido / custoTotalProduto) * 100 : 0;
     const markupPercent = custoTotalProduto > 0 ? ((precoVenda - custoTotalProduto) / custoTotalProduto) * 100 : 0;
@@ -429,7 +448,7 @@ function calcularPrecoVendaML() {
     atualizarResultadosML({
         precoVenda,
         lucroLiquido,
-        taxaMLValor,
+        taxaMercadoLivreValor,
         valorImpostos,
         custoTotalProduto,
         retornoProduto,
@@ -441,12 +460,7 @@ function calcularPrecoVendaML() {
 function atualizarResultadosML(resultados) {
     document.getElementById("precoVendaML").textContent = formatarReal(resultados.precoVenda);
     document.getElementById("lucroPorVendaML").textContent = formatarReal(resultados.lucroLiquido);
-    
-    // Taxa ML agora inclui comissão + frete
-    const taxaFreteValue = parseFloat(document.getElementById("taxaFreteSelect").value) || 0;
-    const taxaMLTotal = resultados.taxaMLValor + taxaFreteValue;
-    document.getElementById("taxaMercadoLivre").textContent = formatarReal(taxaMLTotal);
-    
+    document.getElementById("taxaMercadoLivre").textContent = formatarReal(resultados.taxaMercadoLivreValor);
     document.getElementById("valorImpostosML").textContent = formatarReal(resultados.valorImpostos);
     document.getElementById("custoTotalML").textContent = formatarReal(resultados.custoTotalProduto);
     document.getElementById("retornoProdutoML").textContent = formatarPercentual(resultados.retornoProduto);
@@ -456,11 +470,11 @@ function atualizarResultadosML(resultados) {
     // Atualizar cor do lucro
     const lucroPorVendaElement = document.getElementById("lucroPorVendaML");
     if (resultados.lucroLiquido > 0) {
-        lucroPorVendaElement.style.color = "#4CAF50";
+        lucroPorVendaElement.style.color = "var(--accent-success)";
     } else if (resultados.lucroLiquido < 0) {
-        lucroPorVendaElement.style.color = "#f44336";
+        lucroPorVendaElement.style.color = "var(--accent-danger)";
     } else {
-        lucroPorVendaElement.style.color = "#ff6b35";
+        lucroPorVendaElement.style.color = "var(--accent-primary)";
     }
 }
 
@@ -468,103 +482,51 @@ function resetarCalculadoraML() {
     document.getElementById("custoProdutoML").value = "";
     document.getElementById("impostosML").value = "";
     document.getElementById("despesasVariaveisML").value = "";
+    document.getElementById("taxaMercadoLivreSelect").value = "0";
+    document.getElementById("taxaFreteSelect").value = "0";
     document.getElementById("margemLucroML").value = 0;
-    document.getElementById("taxaMercadoLivreSelect").value = "12";
-    document.getElementById("taxaFreteSelect").value = "39.90";
     multiplicadorCustoML = 1;
     document.getElementById("multiplierML").textContent = "1x";
     
-    document.getElementById("custosExtrasContainerML").innerHTML = '';
+    document.getElementById("custosExtrasContainerML").innerHTML = "";
     
     atualizarMargemValue(document.getElementById("margemValueML"), 0);
     calcularPrecoVendaML();
 }
 
-// ===== FUNÇÕES UTILITÁRIAS =====
+// Funções Auxiliares
 function formatarReal(valor) {
-    return new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-    }).format(valor);
+    return `R$ ${valor.toFixed(2).replace(".", ",")}`;
 }
 
 function formatarPercentual(valor) {
-    return `${valor.toFixed(2)}%`;
-}
-
-function atualizarMargemValue(element, valor) {
-    if (element) {
-        element.textContent = `${valor}%`;
-    }
-}
-
-function atualizarCorMargem(slider, margem) {
-    const fillPercentage = (margem / parseFloat(slider.max)) * 100;
-    slider.style.setProperty("--track-fill", `${fillPercentage}%`);
-
-    slider.classList.remove(
-        'margem-vermelho',
-        'margem-laranja',
-        'margem-amarelo',
-        'margem-verde-lima',
-        'margem-verde-claro',
-        'margem-azul-ciano',
-        'margem-azul-escuro'
-    );
-
-    if (margem >= 0 && margem <= 5) {
-        slider.classList.add('margem-vermelho');
-    } else if (margem >= 6 && margem <= 7) {
-        slider.classList.add('margem-laranja');
-    } else if (margem >= 8 && margem <= 16) {
-        slider.classList.add('margem-amarelo');
-    } else if (margem >= 17 && margem <= 24) {
-        slider.classList.add('margem-verde-lima');
-    } else if (margem >= 25 && margem <= 35) {
-        slider.classList.add('margem-verde-claro');
-    } else if (margem >= 36 && margem <= 50) {
-        slider.classList.add('margem-azul-ciano');
-    } else if (margem >= 51 && margem <= 70) {
-        slider.classList.add("margem-azul-escuro");
-    }
+    return `${valor.toFixed(2).replace(".", ",")}%`;
 }
 
 function validarEntradaNumerica(input) {
-    let value = input.value.replace(/[^0-9.,]/g, "");
+    let valor = input.value.replace(",", ".");
+    valor = valor.replace(/[^0-9.]/g, ""); // Remove tudo exceto números e ponto
     
-    if (value.includes(',')) {
-        value = value.replace(/\./g, '');
-        const parts = value.split(',');
-        if (parts.length > 2) {
-            value = parts[0] + ',' + parts.slice(1).join('');
-        }
-    } else if (value.includes('.')) {
-        const parts = value.split('.');
-        if (parts.length > 2) {
-            value = parts[0] + '.' + parts.slice(1).join('');
-        }
+    // Garante que só há um ponto decimal
+    const parts = valor.split(".");
+    if (parts.length > 2) {
+        valor = parts[0] + "." + parts.slice(1).join("");
     }
-    
-    input.value = value;
+    input.value = valor.replace(".", ",");
 }
 
 function formatarCampo(input) {
-    let valorString = input.value.replace(",", ".");
-    const valor = parseFloat(valorString);
-    
-    if (!isNaN(valor) && valor >= 0) {
-        input.value = valor.toFixed(2).replace(".", ",");
-    } else {
-        input.value = "0,00";
-    }
+    let valor = parseFloat(input.value.replace(",", ".")) || 0;
+    input.value = valor.toFixed(2).replace(".", ",");
 }
 
-function adicionarCustoExtra(target) {
-    const id = `custoExtra-${Date.now()}`;
-    const custoExtraWrapper = document.createElement("div");
-    custoExtraWrapper.classList.add("custo-extra-wrapper");
-    custoExtraWrapper.dataset.id = id;
-    custoExtraWrapper.innerHTML = `
+function adicionarCustoExtra(calculatorType) {
+    const containerId = calculatorType === "ML" ? "custosExtrasContainerML" : "custosExtrasContainer";
+    const container = document.getElementById(containerId);
+
+    const custoExtraDiv = document.createElement("div");
+    custoExtraDiv.classList.add("custo-extra-wrapper");
+    custoExtraDiv.innerHTML = `
         <div class="custo-extra-item">
             <select class="custo-extra-type-selector">
                 <option value="real">R$</option>
@@ -574,97 +536,92 @@ function adicionarCustoExtra(target) {
         </div>
         <button type="button" class="remove-custo-extra-btn">X</button>
     `;
+    container.appendChild(custoExtraDiv);
 
-    const container = target === "ML" ? 
-        document.getElementById("custosExtrasContainerML") : 
-        document.getElementById("custosExtrasContainer");
-    
-    container.appendChild(custoExtraWrapper);
+    const removeBtn = custoExtraDiv.querySelector(".remove-custo-extra-btn");
+    removeBtn.addEventListener("click", () => {
+        custoExtraDiv.remove();
+        if (calculatorType === "ML") {
+            calcularPrecoVendaML();
+        } else {
+            calcularPrecoVendaShopee();
+        }
+    });
 
-    // Adicionar listeners para o novo campo
-    const inputElement = custoExtraWrapper.querySelector(".custo-extra-value");
-    const typeSelector = custoExtraWrapper.querySelector(".custo-extra-type-selector");
-    const removeButton = custoExtraWrapper.querySelector(".remove-custo-extra-btn");
-
-    inputElement.addEventListener("input", function() {
+    const valueInput = custoExtraDiv.querySelector(".custo-extra-value");
+    valueInput.addEventListener("input", function() {
         validarEntradaNumerica(this);
-        if (target === "ML") {
+        if (calculatorType === "ML") {
             calcularPrecoVendaML();
         } else {
             calcularPrecoVendaShopee();
         }
     });
-    
-    inputElement.addEventListener("blur", function() {
+    valueInput.addEventListener("blur", function() {
         formatarCampo(this);
-        if (target === "ML") {
-            calcularPrecoVendaML();
-        } else {
-            calcularPrecoVendaShopee();
-        }
-    });
-    
-    typeSelector.addEventListener("change", function() {
-        if (target === "ML") {
+        if (calculatorType === "ML") {
             calcularPrecoVendaML();
         } else {
             calcularPrecoVendaShopee();
         }
     });
 
-    removeButton.addEventListener("click", function() {
-        custoExtraWrapper.remove();
-        if (target === "ML") {
+    const typeSelector = custoExtraDiv.querySelector(".custo-extra-type-selector");
+    typeSelector.addEventListener("change", function() {
+        if (calculatorType === "ML") {
             calcularPrecoVendaML();
         } else {
             calcularPrecoVendaShopee();
         }
     });
+
+    // Foca no novo input
+    valueInput.focus();
 }
 
-
-
-// ===== FUNCIONALIDADE DO MENU DE USUÁRIO =====
-function initializeUserMenu() {
-    const userIconBtn = document.getElementById("userIconBtn");
+// Lógica do Dropdown do Usuário
+document.addEventListener("DOMContentLoaded", function() {
+    const userIcon = document.getElementById("userIcon");
     const userDropdownMenu = document.getElementById("userDropdownMenu");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const themeToggle = document.getElementById("themeToggle");
 
-    if (userIconBtn) {
-        userIconBtn.addEventListener("click", () => {
+    if (userIcon && userDropdownMenu) {
+        userIcon.addEventListener("click", function(event) {
+            event.stopPropagation(); // Impede que o clique se propague para o documento
             userDropdownMenu.classList.toggle("show");
         });
-    }
 
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            logout();
+        // Fechar o dropdown se clicar fora dele
+        document.addEventListener("click", function(event) {
+            if (!userDropdownMenu.contains(event.target) && !userIcon.contains(event.target)) {
+                userDropdownMenu.classList.remove("show");
+            }
         });
     }
+});
 
-    if (themeToggle) {
-        themeToggle.addEventListener("change", () => {
-            document.body.classList.toggle("dark-theme");
-            const isDarkMode = document.body.classList.contains("dark-theme");
-            localStorage.setItem("dark-theme", isDarkMode);
-        });
-
-        // Aplicar o tema salvo ao carregar a página
-        if (localStorage.getItem("dark-theme") === "true") {
-            document.body.classList.add("dark-theme");
-            themeToggle.checked = true;
-        }
-    }
-
-    // Fechar o menu se clicar fora
-    window.addEventListener("click", (e) => {
-        if (!userIconBtn.contains(e.target) && !userDropdownMenu.contains(e.target)) {
-            userDropdownMenu.classList.remove("show");
-        }
-    });
+function atualizarMargemValue(element, value) {
+    element.textContent = `${value}%`;
 }
 
-// Adicionar a inicialização do menu de usuário ao DOMContentLoaded
-document.addEventListener("DOMContentLoaded", initializeUserMenu);
+function atualizarCorMargem(slider, value) {
+    const percent = parseFloat(value);
+    let colorClass = "";
+
+    if (percent <= 10) {
+        colorClass = "margem-vermelho";
+    } else if (percent <= 20) {
+        colorClass = "margem-laranja";
+    } else if (percent <= 30) {
+        colorClass = "margem-amarelo";
+    } else if (percent <= 40) {
+        colorClass = "margem-verde-lima";
+    } else if (percent <= 50) {
+        colorClass = "margem-verde-claro";
+    } else if (percent <= 60) {
+        colorClass = "margem-azul-ciano";
+    } else {
+        colorClass = "margem-azul-escuro";
+    }
+    slider.className = "margin-slider " + colorClass;
+    slider.style.setProperty("--track-fill", `${value}%`);
+}
