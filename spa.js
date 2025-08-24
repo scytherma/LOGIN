@@ -340,7 +340,7 @@ function getCalculadoraContent() {
                         <div class="input-group">
                             <div class="label-container">
                                 <label for="despesasVariaveisML">DESPESAS VARIÁVEIS</label>
-                                <span class="help-icon" title="Valor gasto com embalagem, etiqueta, etc.">?</span>
+                                <span class="help-icon" title="Valor gasto com o anúncio. Ex: frete, embalagem, etiqueta, etc.">?</span>
                             </div>
                             <div class="input-wrapper">
                                 <span class="currency">R$</span>
@@ -352,23 +352,15 @@ function getCalculadoraContent() {
                         <div class="input-group">
                             <div class="label-container">
                                 <label for="taxaMercadoLivreSelect">TAXA DO MERCADO LIVRE</label>
-                                <span class="help-icon" title="Selecione a categoria e tipo de anúncio">?</span>
+                                <span class="help-icon" title="Selecione a categoria do seu produto para aplicar a taxa correta">?</span>
                             </div>
                             <div class="input-wrapper">
-                                <span class="currency">%</span>
                                 <select id="taxaMercadoLivreSelect" class="select-input">
-                                    <option value="12">Geral - Clássico (12%)</option>
-                                    <option value="15">Geral - Premium (15%)</option>
-                                    <option value="14">Eletrônicos - Clássico (14%)</option>
-                                    <option value="17">Eletrônicos - Premium (17%)</option>
-                                    <option value="16">Moda e Beleza - Clássico (16%)</option>
-                                    <option value="19">Moda e Beleza - Premium (19%)</option>
-                                    <option value="12">Casa e Jardim - Clássico (12%)</option>
-                                    <option value="15">Casa e Jardim - Premium (15%)</option>
-                                    <option value="13">Esportes - Clássico (13%)</option>
-                                    <option value="16">Esportes - Premium (16%)</option>
-                                    <option value="10">Livros - Clássico (10%)</option>
-                                    <option value="13">Livros - Premium (13%)</option>
+                                    <option value="12">Categoria Padrão - 12%</option>
+                                    <option value="11">Veículos - 11%</option>
+                                    <option value="13">Imóveis - 13%</option>
+                                    <option value="16">Serviços - 16%</option>
+                                    <option value="18">Eletrônicos - 18%</option>
                                 </select>
                             </div>
                         </div>
@@ -377,67 +369,17 @@ function getCalculadoraContent() {
                         <div class="input-group">
                             <div class="label-container">
                                 <label for="taxaFreteSelect">TAXA DE FRETE</label>
-                                <span class="help-icon" title="Selecione baseado no peso e valor do produto">?</span>
+                                <span class="help-icon" title="Selecione o tipo de frete">?</span>
                             </div>
                             <div class="input-wrapper">
-                            <span class="currency">R$</span>
-                            <select id="taxaFreteSelect" class="select-input">
-                                <optgroup label="Produtos < R$ 79, usados">
-                                    <option value="39.90">Até 300g (R$ 39,90)</option>
-                                    <option value="42.90">300g a 500g (R$ 42,90)</option>
-                                    <option value="44.90">500g a 1kg (R$ 44,90)</option>
-                                    <option value="46.90">1kg a 2kg (R$ 46,90)</option>
-                                    <option value="49.90">2kg a 3kg (R$ 49,90)</option>
-                                    <option value="53.90">3kg a 4kg (R$ 53,90)</option>
-                                    <option value="56.90">4kg a 5kg (R$ 56,90)</option>
-                                    <option value="88.90">5kg a 9kg (R$ 88,90)</option>
-                                </optgroup>
-                                <optgroup label="Produtos R$ 79 a R$ 99,99">
-                                    <option value="11.97">Até 300g (R$ 11,97)</option>
-                                    <option value="12.87">300g a 500g (R$ 12,87)</option>
-                                    <option value="13.47">500g a 1kg (R$ 13,47)</option>
-                                    <option value="14.07">1kg a 2kg (R$ 14,07)</option>
-                                    <option value="14.97">2kg a 3kg (R$ 14,97)</option>
-                                    <option value="16.17">3kg a 4kg (R$ 16,17)</option>
-                                    <option value="17.07">4kg a 5kg (R$ 17,07)</option>
-                                    <option value="26.67">5kg a 9kg (R$ 26,67)</option>
-                                </optgroup>
-                                <optgroup label="Produtos R$ 100 a R$ 119,99">
-                                    <option value="13.97">Até 300g (R$ 13,97)</option>
-                                    <option value="15.02">300g a 500g (R$ 15,02)</option>
-                                    <option value="15.72">500g a 1kg (R$ 15,72)</option>
-                                    <option value="16.42">1kg a 2kg (R$ 16,42)</option>
-                                    <option value="17.47">2kg a 3kg (R$ 17,47)</option>
-                                    <option value="18.87">3kg a 4kg (R$ 18,87)</option>
-                                    <option value="19.92">4kg a 5kg (R$ 19,92)</option>
-                                </optgroup>
-                                <optgroup label="Produtos R$ 120 a R$ 149,99">
-                                    <option value="15.96">Até 300g (R$ 15,96)</option>
-                                    <option value="17.16">300g a 500g (R$ 17,16)</option>
-                                    <option value="17.96">500g a 1kg (R$ 17,96)</option>
-                                    <option value="18.76">1kg a 2kg (R$ 18,76)</option>
-                                    <option value="19.96">2kg a 3kg (R$ 19,96)</option>
-                                </optgroup>
-                                <optgroup label="Produtos R$ 150 a R$ 199,99">
-                                    <option value="17.96">Até 300g (R$ 17,96)</option>
-                                    <option value="19.31">300g a 500g (R$ 19,31)</option>
-                                    <option value="20.21">500g a 1kg (R$ 20,21)</option>
-                                    <option value="21.11">1kg a 2kg (R$ 21,11)</option>
-                                    <option value="22.46">2kg a 3kg (R$ 22,46)</option>
-                                </optgroup>
-                                <optgroup label="Produtos > R$ 200">
-                                    <option value="19.95">Até 300g (R$ 19,95)</option>
-                                    <option value="21.45">300g a 500g (R$ 21,45)</option>
-                                    <option value="22.45">500g a 1kg (R$ 22,45)</option>
-                                    <option value="23.45">1kg a 2kg (R$ 23,45)</option>
-                                    <option value="24.95">2kg a 3kg (R$ 24,95)</option>
-                                </optgroup>
-                                <optgroup label="Frete Grátis (R$ 19 a R$ 78,99)">
-                                    <option value="0">Frete Grátis - ML paga (R$ 0,00)</option>
-                                </optgroup>
-                            </select>
+                                <select id="taxaFreteSelect" class="select-input">
+                                    <option value="0">Frete Grátis - R$ 0,00</option>
+                                    <option value="5">Frete Padrão - R$ 5,00</option>
+                                    <option value="10">Frete Expresso - R$ 10,00</option>
+                                    <option value="15">Frete Premium - R$ 15,00</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
 
                         <!-- Custos Extras Dinâmicos -->
                         <div class="input-group">
@@ -458,7 +400,7 @@ function getCalculadoraContent() {
                         <div class="main-results">
                             <div class="result-item">
                                 <span class="result-label">Preço de Venda</span>
-                                <span class="result-value primary" id="precoVendaML">R$ 5,00</span>
+                                <span class="result-value primary" id="precoVendaML">R$ 45,34</span>
                             </div>
                             <div class="result-item">
                                 <span class="result-label">Lucro por Venda</span>
@@ -470,9 +412,8 @@ function getCalculadoraContent() {
                         <div class="secondary-results">
                             <div class="result-box">
                                 <span class="result-label">Taxa do ML</span>
-                                <span class="result-value" id="taxaMercadoLivre">R$5,00</span>
+                                <span class="result-value" id="taxaMercadoLivre">R$45,34</span>
                             </div>
-
                             <div class="result-box">
                                 <span class="result-label">Valor dos Impostos</span>
                                 <span class="result-value" id="valorImpostosML">R$0,00</span>
@@ -926,7 +867,7 @@ function initializeMercadoLivreCalculator() {
         });
     }
 
-    // Botões do multiplicador
+    // Botões do multiplicador ML
     const arrowUpML = document.querySelector(".arrow-up[data-target='ML']");
     const arrowDownML = document.querySelector(".arrow-down[data-target='ML']");
 
@@ -1074,7 +1015,6 @@ function calcularPrecoVendaML() {
         custoTotalProduto,
         retornoProduto,
         markupPercent,
-
         markupX
     });
 }
@@ -1089,7 +1029,6 @@ function atualizarResultadosML(resultados) {
     const markupPercentEl = document.getElementById("markupPercentML");
     const markupXEl = document.getElementById("markupXML");
 
-
     if (precoVendaEl) precoVendaEl.textContent = formatarReal(resultados.precoVenda);
     if (lucroPorVendaEl) lucroPorVendaEl.textContent = formatarReal(resultados.lucroLiquido);
     if (taxaMercadoLivreEl) taxaMercadoLivreEl.textContent = formatarReal(resultados.taxaMLValor);
@@ -1098,7 +1037,6 @@ function atualizarResultadosML(resultados) {
     if (retornoProdutoEl) retornoProdutoEl.textContent = formatarPercentual(resultados.retornoProduto);
     if (markupPercentEl) markupPercentEl.textContent = formatarPercentual(resultados.markupPercent);
     if (markupXEl) markupXEl.textContent = `${resultados.markupX.toFixed(2)}X`;
-
 
     // Atualizar cor do lucro
     if (lucroPorVendaEl) {
@@ -1225,19 +1163,23 @@ function adicionarCustoExtra(tipo) {
     const custoExtraId = `custo-extra-${Date.now()}`;
 
     const custoExtraHTML = `
-        <div class="input-group custo-extra-item" id="${custoExtraId}">
-            <div class="label-container">
-                <label>CUSTO EXTRA</label>
-                <button type="button" class="remove-custo-extra-btn" onclick="removerCustoExtra('${custoExtraId}', '${tipo}')">×</button>
+        <div class="custo-extra-item" id="${custoExtraId}">
+            <div class="custo-extra-header">
+                <label class="custo-extra-label">CUSTO EXTRA</label>
+                <button type="button" class="custo-extra-add-btn">+</button>
+                <span class="custo-extra-help-icon" title="Adicione valores que considerar importante para a precificação do anúncio. Selecione entre R$ e %.">?</span>
             </div>
-            <div class="input-wrapper">
-                <span class="currency">R$</span>
-                <input type="text" class="custo-extra-value" placeholder="0,00">
-                <select class="custo-extra-type-selector">
-                    <option value="real">R$</option>
-                    <option value="percent">%</option>
-                </select>
-                <button type="button" class="remove-custo-extra-btn" onclick="removerCustoExtra(\'${custoExtraId}\', \'${tipo}\')">×</button>
+            <div class="custo-extra-controls">
+                <div class="custo-extra-type-dropdown">
+                    <select class="custo-extra-type-selector">
+                        <option value="percent">%</option>
+                        <option value="real">R$</option>
+                    </select>
+                </div>
+                <div class="custo-extra-input-wrapper">
+                    <input type="text" class="custo-extra-value" placeholder="0,00">
+                </div>
+                <button type="button" class="custo-extra-remove-btn" onclick="removerCustoExtra('${custoExtraId}', '${tipo}')">×</button>
             </div>
         </div>
     `;
