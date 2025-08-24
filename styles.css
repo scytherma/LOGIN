@@ -648,24 +648,25 @@ body.dark-theme .margin-section {
     border-color: #ff6b35;
 }
 
-.custo-extra-remove-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background: #ff4757;
+.remove-custo-extra-btn {
+    background: rgb(255, 60, 0);
     color: white;
     border: none;
     border-radius: 50%;
-    font-size: 16px;
-    font-weight: 600;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    font-weight: bold;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
     transition: background-color 0.2s;
 }
 
-.custo-extra-remove-btn:hover {
-    background: #ff3742;
+.remove-custo-extra-btn:hover {
+    background: #d32f2f;
 }
 
 /* Estilos para o botão Limpar Campos */
