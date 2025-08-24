@@ -1233,9 +1233,9 @@ body.dark-theme select option {
     padding: 1rem 0.5rem;
     display: flex;
     flex-direction: column;
-    transition: width 0.3s ease-in-out;
+    transition: width 0.3s;
     overflow: hidden;
-    position: fixed;
+    position: relative;
     top: 60px; /* Altura do header */
     left: 0;
     height: calc(100vh - 60px); /* Altura total menos a altura do header */
