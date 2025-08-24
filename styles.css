@@ -538,105 +538,133 @@ body.dark-theme .margin-section {
     --track-color: #00008B;
 }
 
-/* Estilos para Custo Extra Dinâmico */
-.add-custo-extra-btn {
+/* Novo design para custos extras baseado na inspiração */
+.custo-extra-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid #e9ecef;
+}
+
+.custo-extra-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.custo-extra-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.5px;
+    flex: 1;
+}
+
+.custo-extra-add-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
     background: #4CAF50;
     color: white;
     border: none;
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10px;
     transition: background-color 0.2s;
 }
 
-.add-custo-extra-btn:hover {
+.custo-extra-add-btn:hover {
     background: #45a049;
 }
 
-.input-group label .add-custo-extra-btn {
-    margin-top: -2px;
-}
-
-#custosExtrasContainer, #custosExtrasContainerML {
-    margin-top: 15px;
-}
-
-.custo-extra-wrapper {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    gap: 10px;
-}
-
-.custo-extra-item {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-}
-
-.custo-extra-item:focus-within {
-    border-color: #4CAF50;
-}
-
-.custo-extra-type-selector {
-    padding: 12px 15px;
-    background: #f8f9fa;
-    font-weight: 600;
-    color: #666;
-    border: none;
-    border-right: 1px solid #e0e0e0;
-    outline: none;
-    cursor: pointer;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%23666666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 5px center;
-    background-size: 16px;
-    padding-right: 25px;
-}
-
-.custo-extra-value {
-    flex: 1;
-    padding: 12px 15px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background: transparent;
-}
-
-.remove-custo-extra-btn {
-    background: rgb(255, 60, 0);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
+.custo-extra-help-icon {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    background: #ddd;
+    border-radius: 50%;
+    font-size: 10px;
+    color: #666;
+    cursor: help;
     transition: background-color 0.2s;
 }
 
-.remove-custo-extra-btn:hover {
-    background: #d32f2f;
+.custo-extra-help-icon:hover {
+    background: #bbb;
+}
+
+.custo-extra-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.custo-extra-type-dropdown {
+    position: relative;
+}
+
+.custo-extra-type-selector {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 60px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23666666" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 12px;
+    padding-right: 28px;
+}
+
+.custo-extra-input-wrapper {
+    flex: 1;
+}
+
+.custo-extra-value {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.custo-extra-value:focus {
+    border-color: #ff6b35;
+}
+
+.custo-extra-remove-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.custo-extra-remove-btn:hover {
+    background: #ff3742;
 }
 
 /* Estilos para o botão Limpar Campos */
