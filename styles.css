@@ -562,19 +562,20 @@ body.dark-theme .margin-section {
     flex: 1;
 }
 
-.custo-extra-add-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
+.add-custo-extra-btn {
     background: #4CAF50;
     color: white;
     border: none;
     border-radius: 50%;
-    font-size: 14px;
-    font-weight: 600;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
     transition: background-color 0.2s;
 }
 
