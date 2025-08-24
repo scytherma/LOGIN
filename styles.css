@@ -1352,7 +1352,7 @@ body.dark-theme select option {
     border-bottom: 1px solid #e9ecef;
     position: fixed;
     top: 0;
-    left: 0px; /* Ajustar para a largura da sidebar */
+    left: 60px; /* Ajustar para a largura da sidebar */
     right: 0;
     z-index: 999;
     height: 60px; /* Altura fixa para o header */
