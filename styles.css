@@ -1233,7 +1233,7 @@ body.dark-theme select option {
     padding: 1rem 0.5rem;
     display: flex;
     flex-direction: column;
-    transition: width 0.3s ease-in-out;
+    transition: width 0.5s ease-in-out, margin-left 0.5s ease-in-out;
     overflow: hidden;
     position: fixed;
     top: 60px; /* Altura do header */
