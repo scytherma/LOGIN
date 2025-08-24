@@ -1229,7 +1229,10 @@ body.dark-theme select option {
     flex-direction: column;
     transition: width 0.3s ease-in-out;
     overflow: hidden;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
     z-index: 1000;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -1326,6 +1329,7 @@ body.dark-theme select option {
 
 /* Conteúdo principal */
 .main-content {
+    margin-left: 60px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -1614,3 +1618,7 @@ body.dark-theme select option {
     }
 }
 
+
+.sidebar:hover + .main-content {
+    margin-left: 220px;
+}
