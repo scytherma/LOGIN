@@ -1227,7 +1227,7 @@ function adicionarCustoExtra(tipo) {
     const custoExtraHTML = `
         <div class="input-group custo-extra-item" id="${custoExtraId}">
             <div class="label-container">
-                <label>CUSTO EXTRA</label>
+                <label></label>
                 <button type="button" class="remove-custo-extra-btn" onclick="removerCustoExtra('${custoExtraId}', '${tipo}')">×</button>
             </div>
             <div class="input-wrapper">
