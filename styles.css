@@ -1239,7 +1239,7 @@ body.dark-theme select option {
     top: 60px; /* Altura do header */
     left: 0;
     height: calc(100vh - 60px); /* Altura total menos a altura do header */
-    z-index: 1000;
+    z-index: 999;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
