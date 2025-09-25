@@ -9,12 +9,29 @@
     <link rel="stylesheet" href="new-pages.css">
     <link rel="stylesheet" href="dre-styles.css">
     <link rel="stylesheet" href="market-research.css">
+    <!-- NOVA DEPENDÊNCIA: MarketSense AI CSS -->
+    <link rel="stylesheet" href="market-research-new.css">
+    
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- NOVA DEPENDÊNCIA: Tailwind CSS para MarketSense AI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <!-- Chart.js para gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- NOVA DEPENDÊNCIA: Recharts para gráficos avançados -->
+    <script src="https://unpkg.com/recharts@2.8.0/umd/Recharts.js"></script>
+    
+    <!-- NOVA DEPENDÊNCIA: Framer Motion para animações -->
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Supabase -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script src="./supabase-config.js"></script>
+    
+    <!-- Scripts existentes -->
     <script src="./market-research.js"></script>
     <script src="./spa.js"></script>
     <script src="./dre-calculator.js"></script>
@@ -22,6 +39,10 @@
     <script src="./subscription_control.js"></script>
     <script src="./user-dropdown.js"></script>
     <script src="./plan-clock.js"></script>
+    
+    <!-- NOVO SCRIPT: MarketSense AI -->
+    <script src="./market-research-new.js"></script>
+    
     <!-- Carregando plans.js por último para garantir que todas as dependências estejam disponíveis -->
     <script src="./plans.js"></script>
 </head>
@@ -124,7 +145,6 @@
                     <img src="https://i.postimg.cc/KYqk4xX2/LOGO-LUCRE-CERTO-FOGUETE.png" class="logo" alt="Logo Lucre Certo">
                 </div>
 
-
                 <div class="user-info">
                     <span id="userName">Carregando...</span>
                     <!-- Relógio com informações do plano -->
@@ -218,5 +238,3 @@
             }, 1000); // Aguardar 1 segundo para garantir que todos os scripts foram carregados
         });
     </script>
-
-
