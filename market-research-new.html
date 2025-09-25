@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketSense AI - Pesquisa de Mercado</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Framer Motion (via CDN) -->
+    <script src="https://unpkg.com/framer-motion@10/dist/framer-motion.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="market-research-new.css">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <!-- Header -->
+    <div class="bg-white border-b shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">
+                    MarketSense AI
+                </h1>
+                <p class="text-xl text-gray-600">
+                    Análise Inteligente de Mercado para E-commerce
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Search Section -->
+        <div id="searchSection" class="max-w-2xl mx-auto mb-12">
+            <div class="relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl blur-xl opacity-30"></div>
+                <div class="relative bg-white/80 backdrop-blur-sm border border-blue-100 rounded-2xl p-6 shadow-xl">
+                    <div class="flex gap-3">
+                        <div class="relative flex-1">
+                            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                            <input
+                                id="marketSearchInput"
+                                type="text"
+                                placeholder="Digite o nome do produto (ex: tênis esportivo, smartphone)"
+                                class="pl-12 h-14 text-lg border-0 bg-slate-50/50 rounded-xl focus:bg-white transition-all duration-200 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                        <button
+                            id="marketSearchButton"
+                            class="h-14 px-8 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-xl font-semibold text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <span id="searchButtonText">Pesquisar</span>
+                            <i id="searchButtonLoader" class="fas fa-spinner fa-spin hidden"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="resultsContainer" class="space-y-8 hidden">
+            <!-- First Row - Trend Chart and Map -->
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Trend Chart -->
+                <div id="trendChartCard" class="bg-white/60 backdrop-blur-sm border border-blue-100 shadow-lg rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg">
+                            <i class="fas fa-chart-line text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-800">Interesse ao longo do tempo</h3>
+                    </div>
+                    <div class="h-64 mb-4">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                    <div id="currentMonthData" class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
+                        <div class="text-center">
+                            <p class="text-sm text-slate-600 mb-1" id="currentMonth">Dez</p>
+                            <p class="text-3xl font-bold text-blue-600" id="currentValue">65</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brazil Map -->
+                <div id="brazilMapCard" class="bg-white/60 backdrop-blur-sm border border-blue-100 shadow-lg rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg">
+                            <i class="fas fa-map-marker-alt text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-800">Regiões de interesse</h3>
+                    </div>
+                    <div class="relative">
+                        <div id="brazilMapContainer" class="w-full h-auto mb-4">
+                            <!-- SVG Map will be inserted here -->
+                        </div>
+                        
+                        <!-- Legend -->
+                        <div class="grid grid-cols-2 gap-2 mb-4" id="mapLegend">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <span class="text-sm text-slate-600">Pouco</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <span class="text-sm text-slate-600">Médio</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                                <span class="text-sm text-slate-600">Bom</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-blue-800"></div>
+                                <span class="text-sm text-slate-600">Excelente</span>
+                            </div>
+                        </div>
+
+                        <!-- State info popup -->
+                        <div id="stateTooltip" class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-xl p-4 shadow-xl absolute bottom-0 left-0 w-full hidden">
+                            <h4 class="font-semibold text-slate-800 mb-1" id="tooltipStateName"></h4>
+                            <p class="text-sm text-slate-600 mb-2">
+                                Interesse: <span class="font-medium" id="tooltipStateValue"></span>
+                            </p>
+                            <p class="text-sm">
+                                <span id="tooltipStateLevel" class="px-2 py-1 rounded-full text-white text-xs font-medium"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Row - Demographics and Competitors -->
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Demographics -->
+                <div id="demographicsCard" class="bg-white/60 backdrop-blur-sm border border-blue-100 shadow-lg rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg">
+                            <i class="fas fa-users text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-800">Demografia e mercado</h3>
+                    </div>
+                    <div class="h-48 mb-4">
+                        <canvas id="demographicsChart"></canvas>
+                    </div>
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
+                        <p class="text-sm text-slate-600 mb-1">Renda média</p>
+                        <p class="text-2xl font-bold text-blue-600" id="avgIncome">R$ 3.500</p>
+                    </div>
+                </div>
+
+                <!-- Competitors -->
+                <div id="competitorsCard" class="bg-white/60 backdrop-blur-sm border border-blue-100 shadow-lg rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg">
+                            <i class="fas fa-balance-scale text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-800">Concorrência</h3>
+                    </div>
+                    <div class="overflow-hidden rounded-xl border border-slate-200">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-slate-50">
+                                    <th class="font-semibold text-slate-700 p-3 text-left">Produto</th>
+                                    <th class="font-semibold text-slate-700 p-3 text-left">Preço</th>
+                                    <th class="font-semibold text-slate-700 p-3 text-left">Avaliação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="competitorsTableBody">
+                                <!-- Competitors will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third Row - Price and Insights -->
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Suggested Price -->
+                <div id="suggestedPriceCard" class="bg-gradient-to-br from-emerald-50 via-blue-50 to-indigo-50 border border-emerald-200 shadow-lg rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-gradient-to-r from-emerald-500 to-green-500 rounded-lg">
+                            <i class="fas fa-dollar-sign text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-800">Preço sugerido</h3>
+                    </div>
+                    <div class="flex flex-col justify-center h-32">
+                        <div class="text-center">
+                            <div class="text-5xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent mb-2" id="suggestedPrice">
+                                R$ 349,99
+                            </div>
+                            <div class="flex items-center justify-center gap-1 text-emerald-600">
+                                <i class="fas fa-chart-line"></i>
+                                <span class="text-sm font-medium">Baseado na análise de mercado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales Insights -->
+                <div id="salesInsightsCard" class="bg-white/60 backdrop-blur-sm border border-blue-100 shadow-lg rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg">
+                            <i class="fas fa-chart-bar text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-800">Insights de vendas</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <!-- Seasonality -->
+                        <div class="flex items-start gap-3 p-3 rounded-xl bg-blue-50 border border-blue-100">
+                            <i class="fas fa-calendar text-blue-600 mt-0.5"></i>
+                            <div>
+                                <p class="text-sm font-medium text-blue-900 mb-1">Sazonalidade</p>
+                                <p class="text-sm text-blue-700" id="seasonalityText">Maior demanda no final do ano</p>
+                            </div>
+                        </div>
+
+                        <!-- Opportunities -->
+                        <div class="space-y-2">
+                            <p class="text-sm font-medium text-slate-700">Oportunidades:</p>
+                            <div class="flex flex-wrap gap-2" id="opportunitiesContainer">
+                                <!-- Opportunities badges will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Row - AI Insights -->
+            <div id="aiInsightsCard" class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 border border-indigo-200 shadow-lg rounded-xl p-6">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="p-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl">
+                        <i class="fas fa-brain text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-800">Insights e recomendações de IA</h3>
+                        <p class="text-sm text-slate-600 mt-1">
+                            Análise detalhada baseada em dados de mercado
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- Viability Assessment -->
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-white/70 border border-indigo-100">
+                        <i id="viabilityIcon" class="fas fa-check-circle text-green-600 mt-1"></i>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-2">
+                                <h4 class="font-semibold text-slate-800">Viabilidade do Produto</h4>
+                                <span id="viabilityBadge" class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Alta
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Recommendations -->
+                    <div class="p-6 rounded-xl bg-white/70 border border-indigo-100">
+                        <h4 class="font-semibold text-slate-800 mb-3 flex items-center gap-2">
+                            <i class="fas fa-check-circle text-indigo-600"></i>
+                            Recomendações detalhadas
+                        </h4>
+                        <p class="text-slate-700 leading-relaxed" id="detailedRecommendations">
+                            Produto com boa viabilidade no mercado brasileiro. Recomenda-se focar nas regiões Sul e Sudeste.
+                        </p>
+                    </div>
+
+                    <!-- Market Analysis Summary -->
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-xl bg-white/50 border border-indigo-100 text-center">
+                            <div class="w-10 h-10 mx-auto mb-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-sm">✓</span>
+                            </div>
+                            <p class="text-xs font-medium text-slate-600 uppercase tracking-wide">
+                                Análise Completa
+                            </p>
+                            <p class="text-sm text-slate-800 font-medium">Mercado Analisado</p>
+                        </div>
+                        
+                        <div class="p-4 rounded-xl bg-white/50 border border-indigo-100 text-center">
+                            <div class="w-10 h-10 mx-auto mb-2 bg-gradient-to-r from-emerald-500 to-green-500 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-sm">IA</span>
+                            </div>
+                            <p class="text-xs font-medium text-slate-600 uppercase tracking-wide">
+                                Inteligência Artificial
+                            </p>
+                            <p class="text-sm text-slate-800 font-medium">Insights Gerados</p>
+                        </div>
+                        
+                        <div class="p-4 rounded-xl bg-white/50 border border-indigo-100 text-center">
+                            <div class="w-10 h-10 mx-auto mb-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-sm">$</span>
+                            </div>
+                            <p class="text-xs font-medium text-slate-600 uppercase tracking-wide">
+                                Precificação
+                            </p>
+                            <p class="text-sm text-slate-800 font-medium">Preço Calculado</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="market-research-new.js"></script>
+</body>
+</html>

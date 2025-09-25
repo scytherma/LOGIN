@@ -1,0 +1,426 @@
+/* MarketSense AI - Estilos Adaptados */
+
+/* Animações personalizadas */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Aplicar animações aos elementos */
+#searchSection {
+    animation: scaleIn 0.6s ease-out;
+}
+
+#resultsContainer > div:nth-child(1) {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+#resultsContainer > div:nth-child(2) {
+    animation: fadeInUp 0.6s ease-out 0.1s;
+    animation-fill-mode: both;
+}
+
+#resultsContainer > div:nth-child(3) {
+    animation: fadeInUp 0.6s ease-out 0.2s;
+    animation-fill-mode: both;
+}
+
+#resultsContainer > div:nth-child(4) {
+    animation: fadeInUp 0.6s ease-out 0.3s;
+    animation-fill-mode: both;
+}
+
+#trendChartCard {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+#brazilMapCard {
+    animation: slideInRight 0.6s ease-out;
+}
+
+/* Efeitos de hover personalizados */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Cards com efeito glassmorphism */
+.glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Gradientes personalizados */
+.gradient-blue {
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
+}
+
+.gradient-emerald {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.gradient-indigo {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+/* Botões com efeitos */
+button {
+    transition: all 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+/* Input com foco personalizado */
+input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Tabela com hover */
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+    background-color: rgba(248, 250, 252, 0.5);
+}
+
+/* Badges personalizados */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.badge-green {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: rgb(5, 150, 105);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.badge-yellow {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: rgb(217, 119, 6);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.badge-red {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: rgb(220, 38, 38);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.badge-blue {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: rgb(37, 99, 235);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Estrelas de avaliação */
+.star-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+}
+
+.star {
+    width: 0.75rem;
+    height: 0.75rem;
+    color: #d1d5db;
+    transition: color 0.2s ease;
+}
+
+.star.filled {
+    color: #fbbf24;
+}
+
+/* Tooltip personalizado */
+.tooltip {
+    position: absolute;
+    z-index: 1000;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.tooltip.show {
+    opacity: 1;
+}
+
+/* Mapa do Brasil - Estados */
+.brazil-state {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    stroke: #e5e7eb;
+    stroke-width: 1;
+}
+
+.brazil-state:hover {
+    stroke: #374151;
+    stroke-width: 2;
+    filter: brightness(1.1);
+}
+
+/* Loading states */
+.loading {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsividade aprimorada */
+@media (max-width: 1024px) {
+    .grid.lg\\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .max-w-7xl {
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .text-4xl {
+        font-size: 2rem;
+    }
+    
+    .text-xl {
+        font-size: 1.125rem;
+    }
+    
+    .h-14 {
+        height: 3rem;
+    }
+    
+    .text-lg {
+        font-size: 1rem;
+    }
+    
+    .px-8 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .text-5xl {
+        font-size: 2.5rem;
+    }
+    
+    .grid.md\\:grid-cols-3 {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .flex.gap-3 {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .px-6 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .py-8 {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+    
+    .space-y-8 > * + * {
+        margin-top: 1.5rem;
+    }
+}
+
+/* Tema escuro (opcional) */
+@media (prefers-color-scheme: dark) {
+    .dark-mode {
+        background: linear-gradient(135deg, #1e293b, #334155);
+    }
+    
+    .dark-mode .glass-card {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .dark-mode .text-slate-800 {
+        color: #e2e8f0;
+    }
+    
+    .dark-mode .text-slate-600 {
+        color: #94a3b8;
+    }
+    
+    .dark-mode .bg-white {
+        background-color: #334155;
+    }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Transições suaves para todos os elementos */
+* {
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Foco acessível */
+*:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+button:focus,
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Estados de carregamento para cards */
+.card-loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Melhorias de acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+    }
+    
+    .glass-card {
+        background: white !important;
+        border: 1px solid #e5e7eb !important;
+    }
+}
